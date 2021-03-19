@@ -1,0 +1,81 @@
+
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block body_content %}
+
+
+
+
+    <header>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+      </div>
+    </header>
+
+      <section class="jumbotron text-center bg-white">
+        <form action="{% url 'update_subject' id=subjects.id %}" method="POST" >
+    <input type = "hidden" name= "csrf_token" value="{{csrf_token}}">
+    {% csrf_token %}
+         <font size="8" color="grey" >Subject : {{ form.title }}</font>
+
+    </section>
+
+
+
+     <div class="album py-5 bg-dark">
+        <div class="container">
+
+
+
+
+            <font size="8" color="white" > Students: </font>
+          <div class="row">
+
+              {% for student in subjects.student.all %}
+
+
+            <div class="col-md-3">
+              <div class="card mb-4 box-shadow">
+                  <h2> {{ student.name}} {{ student.surname}} </h2>
+
+
+
+
+
+                         <div class="btn-group">
+                      <a href="{% url 'student_subject'  student_id=student.id subject_id=subjects.id%}">
+                      <button type="button" class="btn btn-sm btn-outline-secondary"> Delete </button> </a>
+                    </div>
+
+
+                </div>
+              </div>
+              {% endfor %}
+
+
+
+</div>
+              <font size="8" color="white" > Add students: </font> <br>
+                             {% for student in students  %}
+
+                      <a href="{% url 'add_student'  subject_id=subjects.id student_id=student.id  %}">
+                      <button type="button" class="btn btn-sm btn-outline-secondary"> {{ student.name}} {{ student.surname}} </button> </a>
+
+            {% endfor %}
+
+
+
+
+<p>
+<center>
+<a href="{% url 'subjects' %}">
+                      <button style="height:80px; width: 250px" type="submit" class="btn btn-sm btn-outline-secondary"> <h2> Submit </h2> </button> </a> </center>
+
+</form>
+</p>
+
+
+
+{% endblock %}

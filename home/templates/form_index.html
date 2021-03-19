@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block body_content %}
+
+<form action="{% url 'create' %}" method="POST">
+    <input type = "hidden" name= "csrf_token" value="{{csrf_token}}">
+    {% csrf_token %}
+
+<div class="form-group col-md-12 mb-0">
+<div class="form-row" >
+      <div class="form-group col-md-6 mb-0 ">
+        {{ form.name|as_crispy_field }}
+      </div>
+      <div class="form-group col-md-6 mb-0 ">
+        {{ form.surname|as_crispy_field }}
+      </div>
+</div>
+<div class="form-row" >
+    <div class="form-group col-md-6 mb-0">
+        {{ form.sex|as_crispy_field }}
+    </div>
+    <div class="form-group col-md-6 mb-0">
+        {{ form.age|as_crispy_field }}
+    </div>
+</div>
+    {{ form.address|as_crispy_field }}
+<div class="form-row">
+      <div class="form-group col-md-2 mb-0">
+        {{ form.birthday|as_crispy_field }}
+      </div>
+      <div class="form-group col-md-4 mb-0">
+        {{ form.email|as_crispy_field }}
+      </div>
+      <div class="form-group col-md-6 mb-0">
+        {{ form.social_url|as_crispy_field }}
+      </div>
+</div>
+    {{ form.description|as_crispy_field }}
+         <div class="btn-group">
+                      <button type="input" class="btn btn-sm btn-outline-secondary"> Create </button> </a>
+                    </div>
+</div >
+</form>
+
+{% endblock %}

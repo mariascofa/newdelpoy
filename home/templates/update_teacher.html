@@ -1,0 +1,66 @@
+
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block body_content %}
+
+
+
+
+    <header>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+      </div>
+    </header>
+
+      <section class="jumbotron text-center bg-white">
+<form action="{% url 'update_teacher' id=teacher.id %}" method="POST" >
+    <input type = "hidden" name= "csrf_token" value="{{csrf_token}}">
+         <font size="8" color="grey" >Teacher : {{ form.name }}</font>
+            {% csrf_token %}
+      </section>
+
+
+
+     <div class="album py-5 bg-dark">
+        <div class="container">
+            <font size="8" color="white" > Students: </font>
+          <div class="row">
+              {% for student in teacher.students.all %}
+
+
+            <div class="col-md-3">
+              <div class="card mb-4 box-shadow">
+                  <h2> {{ student.name}} {{ student.surname}} </h2>
+
+
+                         <div class="btn-group">
+                      <a href="{% url  'delete_teacher' student_id=student.id teacher_id=teacher.id%}">
+                      <button type="button" class="btn btn-sm btn-outline-secondary"> Delete </button> </a>
+                    </div>
+
+
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+
+                          <font size="8" color="white" > Add students: </font> <br>
+                             {% for student in students  %}
+
+                      <a href="{% url 'teacher_student'  teacher_id=teacher.id student_id=student.id %}">
+                      <button type="button" class="btn btn-sm btn-outline-secondary"> {{ student.name}} {{ student.surname}} </button> </a>
+
+            {% endfor %}
+
+
+<p>
+<center>
+<a href="{% url 'teachers' %}">
+                      <button style="height:80px; width: 250px" type="submit" class="btn btn-sm btn-outline-secondary"> <h2> Submit </h2> </button> </a> </center>
+
+</form>
+</p>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block body_content %}
+
+
+{% for currency in currencies %}
+    <table border="1">
+        <tr>
+    <td width="100">{{ currency.ccy }}</td>
+    <td width="100">{{ currency.base }}</td>
+    <td width="100">{{ currency.buy }}</td>
+    <td width="100">{{ currency.sale }}</td>
+
+        </tr>
+    </table>
+    {% endfor %}
+
+{% endblock %}

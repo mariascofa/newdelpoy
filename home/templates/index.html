@@ -1,0 +1,102 @@
+
+{% extends "base.html" %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block body_content %}
+
+
+
+
+    <header>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+      </div>
+    </header>
+<section class="jumbotron text-center bg-white">
+          <center>
+ <a href="{% url 'subjects'  %}">
+ <button style="height:80px; width: 400px" type="button" class="btn btn-sm btn-outline-secondary"><h3>Subjects list</h3></button></a>
+ <a href="{% url 'teachers'  %}">
+ <button style="height:80px; width: 400px" type="button" class="btn btn-sm btn-outline-secondary"><h3>Teachers list</h3></button></a>
+ <a href="{% url 'book'  %}">
+ <button style="height:80px; width: 400px" type="button" class="btn btn-sm btn-outline-secondary"><h3>Books list</h3></button></a>
+</center>
+    </section>
+
+      <center>
+
+
+         <H1 class="jumbotron-heading">Students list</H1>
+
+
+ <a href="{% url 'create'  %}">
+ <button style="height:40px; width: 250px" type="button" class="btn btn-sm btn-outline-secondary"><h3>Create student</h3></button></a>
+</center>
+
+
+
+        <p><center> <H2 class="jumbotron-heading">Filter by:</H2></center>
+
+           <form method="GET ">
+    <input type = "hidden" name= "csrf_token" value="{{csrf_token}}">
+    {% csrf_token %}
+<center>
+              <strong> {{ myFilter.form }} </strong>
+
+                    <div class="btn-group">
+                      <button type="submit" class="btn btn-sm btn-outline-secondary"> Filter </button> </a>
+                    </div>
+</center> </p>
+
+              </form>
+
+
+
+
+     <div class="album py-5 bg-dark">
+
+        <div class="container">
+          <div class="row">
+
+               {% for student in students %}
+            <div class="col-md-3">
+              <div class="card mb-4 box-shadow">
+                <h2> {{ student.name }} {{ student.surname }}</h2>
+                <div class="card-body">
+
+                  <p class="card-text">
+                      <strong> Normalized mame: </strong> {{ student.normalized_name }}<strong>  <br>  Age: </strong> {{ student.age }} <br>
+                      <strong> Sex: </strong> {{ student.sex }} <br> <strong> Addess: </strong> {{ student.address }}
+                    <br> <strong> Birthday: </strong> {{ student.birthday }} <br> <strong> Email: </strong> {{ student.email }}  <br>
+                      <strong> Subject: </strong> {{ student.subject.title }}  <br>
+                      <strong> Book: </strong> {{ student.book.title }}  <br>
+<strong> Teachers: </strong>
+                       {% for teacher in student.teacher.all  %}
+                      {{ teacher.name }}  <br>
+                       {% endfor %}
+                      <strong> Social network: </strong> {{ student.social_url }}  </p>
+                    <p class="card-text"> <strong> Description: </strong> {{ student.description }}  </p>
+
+
+                    <div class="btn-group">
+                      <a href="{% url 'update' pk=student.id %}">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                    </div>
+
+                                                <div class="btn-group">
+                      <a href="{% url 'delete' pk=student.id %}">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>
+                    </div>
+
+                </div>
+              </div>
+            </div>
+         {% endfor %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </main>
+
+{% endblock %}

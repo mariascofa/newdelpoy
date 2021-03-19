@@ -1,0 +1,4 @@
+Add a new field social_url to the Student model in which you can store a link to the student's social network.
+ Add a display of the Student model in the Django admin panel. Add a name for the url so that you can use it in reverse. 
+Rewrite endpoint functions to endpoint class. Add two new endpoints: the first for displaying the student's form and data 
+in them that we can change and the second endpoint which will receive data from the form in order to change information about a specific student

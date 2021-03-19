@@ -1,0 +1,68 @@
+
+{% extends "base.html" %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block body_content %}
+
+
+    <header>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+      </div>
+    </header>
+<section class="jumbotron text-center bg-white">
+          <center>
+ <a href="{% url 'students'  %}">
+ <button style="height:80px; width: 400px" type="button" class="btn btn-sm btn-outline-secondary"><h3>Students list</h3></button></a>
+ <a href="{% url 'teachers'  %}">
+ <button style="height:80px; width: 400px" type="button" class="btn btn-sm btn-outline-secondary"><h3>Teachers list</h3></button></a>
+ <a href="{% url 'book'  %}">
+ <button style="height:80px; width: 400px" type="button" class="btn btn-sm btn-outline-secondary"><h3>Books list</h3></button></a>
+</center>
+</section>
+
+
+       <center> <H1 class="jumbotron-heading">Subjects</H1> </center>
+
+<p>&nbsp;</p>
+
+     <div class="album py-5 bg-dark">
+
+        <div class="container">
+          <div class="row">
+               {% for subject in subjects %}
+
+
+            <div class="col-md-4">
+              <div class="card mb-4 box-shadow">
+ <h2> {{ subject.title  }}</h2>
+
+ <div class="card-body">
+                  <p class="card-text"> <strong> Student's name: <br>
+                                            {% for student in subject.student.all %}
+
+                                </strong> {{ student.name}} {{ student.surname}}<br>
+
+               {% endfor %}
+                         <div class="btn-group">
+                      <a href="{% url 'update_subject' id=subject.id  %}">
+                      <button type="button" class="btn btn-sm btn-outline-secondary"> Edit </button> </a>
+                    </div>
+
+
+                </div>
+              </div>
+            </div>
+               {% endfor %}
+
+
+    </div>
+    </main>
+{% endblock %}
+
+
+
+
+
+
+

@@ -1,0 +1,99 @@
+
+{% extends "base.html" %}
+
+{% block title %} Students {% endblock %}
+
+{% block body_content %}
+
+
+
+
+    <header>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+      </div>
+    </header>
+<section class="jumbotron text-center bg-white">
+          <center>
+ <a href="{% url 'subjects'  %}">
+ <button style="height:80px; width: 400px" type="button" class="btn btn-sm btn-outline-secondary"><h3>Subjects list</h3></button></a>
+ <a href="{% url 'teachers'  %}">
+ <button style="height:80px; width: 400px" type="button" class="btn btn-sm btn-outline-secondary"><h3>Teachers list</h3></button></a>
+ <a href="{% url 'book'  %}">
+ <button style="height:80px; width: 400px" type="button" class="btn btn-sm btn-outline-secondary"><h3>Books list</h3></button></a>
+</center>
+    </section>
+
+      <center>
+
+
+         <H1 class="jumbotron-heading">Students list</H1>
+
+
+ <a href="{% url 'create'  %}">
+ <button style="height:40px; width: 250px" type="button" class="btn btn-sm btn-outline-secondary"><h3>Create student</h3></button></a>
+</center>
+
+
+
+     <div class="album py-5 bg-dark">
+
+        <div class="container">
+          <div class="row">
+
+
+{% if user.is_authenticated %}
+{{ user.is_authenticated }}
+               {% for student in students %}
+
+
+
+            <div class="col-md-3">
+              <div class="card mb-4 box-shadow">
+                  {% if student.picture %}
+                  <img src = "/src/deploy/media/{{student.picture}}" width="120" height="150">
+                  {% else %}
+                  <img src = "/src/deploy/media/student_photos/icon.png" width="150" height="150">
+                  {% endif %}
+                <h2> {{ student.name }} {{ student.surname }}</h2>
+                <div class="card-body">
+
+                  <p class="card-text">
+                      <strong> Normalized mame: </strong> {{ student.normalized_name }}<strong>  <br>  Age: </strong> {{ student.age }} <br>
+                      <strong> Sex: </strong> {{ student.sex }} <br> <strong> Addess: </strong> {{ student.address }}
+                    <br> <strong> Birthday: </strong> {{ student.birthday }} <br> <strong> Email: </strong> {{ student.email }}  <br>
+                      <strong> Subject: </strong> {{ student.subject.title }}  <br>
+                      <strong> Book: </strong> {{ student.book.title }}  <br>
+<strong> Teachers: </strong>
+                       {% for teacher in student.teacher.all  %}
+                      {{ teacher.name }}  <br>
+                       {% endfor %}
+                      <strong> Social network: </strong> {{ student.social_url }}  </p>
+                    <p class="card-text"> <strong> Description: </strong> {{ student.description }}  </p>
+
+
+                    <div class="btn-group">
+                      <a href="{% url 'update' pk=student.id %}">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                    </div>
+
+                                        <div class="btn-group">
+                      <a href="{% url 'delete' pk=student.id %}">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>
+                    </div>
+
+                </div>
+              </div>
+            </div>
+
+{% endfor %}
+{% else %}
+ <div class="album py-5 bg-white">Please login! </div>
+{% endif %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </main>
+
+{% endblock %}

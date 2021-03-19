@@ -1,0 +1,48 @@
+
+{% extends "base.html" %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block body_content %}
+
+
+    <header>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+      </div>
+    </header>
+
+      <section class="jumbotron text-center bg-white">
+          <h2 class="jumbotron-heading">Are you sure that you want to delete this student? </h2>
+      </section>
+
+
+
+     <div class="album py-5 bg-dark">
+
+        <div class="container">
+          <div class="row">
+
+
+              <form action="{% url  'delete_teacher' student_id=student.id teacher_id=teacher.id %}" method="POST" >
+        <input type = "hidden" name= "csrf_token" value="{{csrf_token}}">
+    {% csrf_token %}
+
+        <button style="height:100px; width: 150px" type="submit"> <h3> YES </h3> </button>
+</form>
+
+
+&ensp;
+&ensp;
+
+                                       <div style="height :10 px;" class="btn-group">
+                      <a href="{% url 'update_teacher' id=teacher.id  %}">
+                      <button style="height:100px; width: 150px"  type="button" > <h3> NO </h3> </button></a>
+                    </div>
+
+
+                </div>
+              </div>
+            </div>
+    </main>
+
+{% endblock %}
